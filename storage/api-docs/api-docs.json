@@ -1,0 +1,405 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API do Projeto",
+        "description": "Documentação da API do sistema",
+        "contact": {
+            "email": "lrbf@cin.ufpe.br"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/categorias": {
+            "get": {
+                "summary": "Listar todas as categorias",
+                "operationId": "5cf67e668669d72bb5d983f5c8d13db1",
+                "responses": {
+                    "200": {
+                        "description": "Lista de categorias retornada com sucesso"
+                    },
+                    "404": {
+                        "description": "Nenhuma categoria encontrada"
+                    },
+                    "500": {
+                        "description": "Erro inesperado"
+                    }
+                }
+            }
+        },
+        "/api/categorias/criar": {
+            "post": {
+                "summary": "Criar uma nova categoria",
+                "operationId": "2ca45e52fdc745c15644d1ea8a111455",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Categoria criada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "500": {
+                        "description": "Erro inesperado"
+                    }
+                }
+            }
+        },
+        "/api/categorias/deletar/{id}": {
+            "delete": {
+                "summary": "Deletar uma categoria",
+                "operationId": "e5f988d6686799d424877c3840e35800",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da categoria a ser deletada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Categoria deletada com sucesso"
+                    },
+                    "404": {
+                        "description": "Categoria não encontrada"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar categoria"
+                    }
+                }
+            }
+        },
+        "/api/transacoes": {
+            "get": {
+                "summary": "Listar todas as transações",
+                "operationId": "af9c44ccd8daa6b8ef5f7647c7160320",
+                "responses": {
+                    "200": {
+                        "description": "Lista de transações retornada com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro inesperado"
+                    }
+                }
+            }
+        },
+        "/api/transacoes/usuario/{usuario}": {
+            "get": {
+                "summary": "Listar transações por cpf de usuário",
+                "operationId": "ffcc7075e083ff78c5bd3395c5a88a94",
+                "parameters": [
+                    {
+                        "name": "usuario",
+                        "in": "path",
+                        "description": "CPF do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transações do usuário retornadas com sucesso"
+                    },
+                    "404": {
+                        "description": "Nenhuma transação encontrada para este usuário"
+                    }
+                }
+            }
+        },
+        "/api/transacoes/categoria/{categoria}": {
+            "get": {
+                "summary": "Listar transações por id de categoria",
+                "operationId": "22f4493c38c3b6ac5f5233b367265287",
+                "parameters": [
+                    {
+                        "name": "usuario",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transações da categoria retornadas com sucesso"
+                    },
+                    "404": {
+                        "description": "Nenhuma transação encontrada para esta categoria"
+                    }
+                }
+            }
+        },
+        "/api/transacoes/tipo/{tipo}": {
+            "get": {
+                "summary": "Listar transações tipo",
+                "operationId": "cf101041ddfec9b63496d9994d5f1671",
+                "parameters": [
+                    {
+                        "name": "tipo",
+                        "in": "path",
+                        "description": "nome do tipo",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transações do tipo retornadas com sucesso"
+                    },
+                    "404": {
+                        "description": "Nenhuma transação encontrada para este tipo"
+                    }
+                }
+            }
+        },
+        "/api/transacoes/criar": {
+            "post": {
+                "summary": "Criar uma nova transação",
+                "operationId": "34fde3cece3feea4eab5f67de724f0c8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id_categoria",
+                                    "valor",
+                                    "tipo",
+                                    "cpf_usuario"
+                                ],
+                                "properties": {
+                                    "id_categoria": {
+                                        "type": "integer"
+                                    },
+                                    "valor": {
+                                        "type": "number"
+                                    },
+                                    "tipo": {
+                                        "type": "string"
+                                    },
+                                    "cpf_usuario": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Transação criada com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    }
+                }
+            }
+        },
+        "/api/transacoes/deletar/{id}": {
+            "delete": {
+                "summary": "Deletar uma transação",
+                "operationId": "af43944114fe6833d847252c17e0620d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da transação a ser deletada",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transação deletada com sucesso"
+                    },
+                    "404": {
+                        "description": "Transação não encontrada"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar transação"
+                    }
+                }
+            }
+        },
+        "/api/usuarios": {
+            "get": {
+                "summary": "Listar todos os usuários",
+                "operationId": "80b4e8da4cf978527ca08ede4406470a",
+                "responses": {
+                    "404": {
+                        "description": "Nenhum usuário encontrado"
+                    },
+                    "200": {
+                        "description": "Lista de usuários retornada com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro inesperado"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/criar": {
+            "post": {
+                "summary": "Criar um novo usuário",
+                "operationId": "f846c01e3651afb869394c7f0b3b9c61",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "cpf",
+                                    "nome",
+                                    "email",
+                                    "senha"
+                                ],
+                                "properties": {
+                                    "cpf": {
+                                        "type": "string"
+                                    },
+                                    "nome": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "senha": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Usuário já existe"
+                    },
+                    "201": {
+                        "description": "Usuário cadastrado com sucesso"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "500": {
+                        "description": "Erro inesperado"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/deletar/{id}": {
+            "delete": {
+                "summary": "Deletar um usuário",
+                "operationId": "438b2d7011f5e4b0745f1b329a587cde",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CPF do usuário a ser deletado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrada"
+                    },
+                    "500": {
+                        "description": "Erro ao deletar usuário"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/atualizar/{id}": {
+            "put": {
+                "summary": "Atualizar dados de um usuário",
+                "operationId": "a5385a7d53736abd54cec16b46f5b4c0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "CPF do usuário a ser atualizado",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": false,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "description": "Nome do usuário",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email do usuário",
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "senha": {
+                                        "description": "Senha do usuário",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuário atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Usuário não encontrado"
+                    },
+                    "422": {
+                        "description": "Erro de validação"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar usuário"
+                    }
+                }
+            }
+        }
+    }
+}
