@@ -6,7 +6,7 @@ Este projeto consiste em uma API desenvolvida com Laravel para monitoramento fin
 
 ## 🏗️ Estrutura do Banco de Dados
 
-A API utiliza um banco de dados relacional, contendo as seguintes tabelas principais:
+A API utiliza um banco de dados relacional, o qual foi modelado através da ferramenta [EERCASE]([https://opensource.org/licenses/MIT](https://sites.google.com/a/cin.ufpe.br/eercase/), contendo as seguintes tabelas principais:
 
 ### 🔹 Tabelas
 
