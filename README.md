@@ -23,15 +23,15 @@ A API utiliza um banco de dados relacional, o qual foi modelado através da ferr
    - `id` (PK)
    - `nome`
 
-3.**transacoes**
-
+3. **transacoes**
+   
    - `id` (PK)
    - `cpf_usuario` (FK -> usuarios)
    - `valor`
    - `tipo` ("Recebeu" ou "Pagou")
    - `id_categoria` (FK -> categorias)
    - `data`
-     
+
 ### 🔹 Relacionamentos
 
 - Um **usuário** pode ter **múltiplas transações**.
