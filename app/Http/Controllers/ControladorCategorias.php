@@ -47,6 +47,52 @@ class ControladorCategorias extends ControladorBase
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/categorias/{id}",
+     *     summary="Mostrar uma categoria específica por id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da categoria",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Categoria retornada com sucesso"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Categoria não encontrada"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro ao buscar categoria"
+     *     )
+     * )
+     */
+    public function mostrarCategoria($id)
+    {
+        try {
+            $categoria = DB::table('categorias')
+            ->where('id', $id)
+            ->get();
+
+            if ($categoria->isEmpty()) {
+                return response()->json(['erro' => 'Categoria não encontrada'], Response::HTTP_NOT_FOUND);
+            }
+
+            return response()->json(['categorias' => $categoria], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json(
+                ['erro' => 'Erro ao buscar categoria', 'detalhes' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     /**
      * @OA\Post(
      *     path="/api/categorias/criar",

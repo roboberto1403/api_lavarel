@@ -45,6 +45,53 @@ class ControladorUsuarios extends ControladorBase
         }
     }
 
+
+    /**
+     * @OA\Get(
+     *     path="/api/usuarios/{id}",
+     *     summary="Mostrar um usuário específico por CPF",
+     *     @OA\Parameter(
+     *         name="cpf",
+     *         in="path",
+     *         required=true,
+     *         description="CPF do usuário",
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Usuário retornado com sucesso"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Usuário não encontrado"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro ao buscar usuário"
+     *     )
+     * )
+     */
+    public function mostrarUsuario($id)
+    {
+        try {
+            $usuario = DB::table('usuarios')
+            ->where('cpf', $id)
+            ->get();
+
+            if ($usuario->isEmpty()) {
+                return response()->json(['erro' => 'Usuário não encontrado'], Response::HTTP_NOT_FOUND);
+            }
+
+            return response()->json(['usuarios' => $usuario], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json(
+                ['erro' => 'Erro ao buscar usuario', 'detalhes' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+
      /**
      * @OA\Post(
      *     path="/api/usuarios/criar",

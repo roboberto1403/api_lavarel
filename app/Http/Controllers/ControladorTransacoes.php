@@ -45,6 +45,51 @@ class ControladorTransacoes extends ControladorBase
 
     /**
      * @OA\Get(
+     *     path="/api/transacoes/{id}",
+     *     summary="Mostrar uma transação específica por id",
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID da transação",
+     *         @OA\Schema(type="integer")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Transação retornada com sucesso"
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Transação não encontrada"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Erro ao buscar transação"
+     *     )
+     * )
+     */
+    public function mostrarTransacao($id)
+    {
+        try {
+            $transacao = DB::table('transacoes')
+            ->where('id', $id)
+            ->get();
+
+            if ($transacao->isEmpty()) {
+                return response()->json(['erro' => 'Transação não encontrada'], Response::HTTP_NOT_FOUND);
+            }
+
+            return response()->json(['transacoes' => $transacao], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json(
+                ['erro' => 'Erro ao buscar transação', 'detalhes' => $e->getMessage()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    /**
+     * @OA\Get(
      *     path="/api/transacoes/usuario/{usuario}",
      *     summary="Listar transações por cpf de usuário",
      *     @OA\Parameter(
